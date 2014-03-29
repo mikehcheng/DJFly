@@ -65,13 +65,21 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return [self getKeys].count;
+}
+
+- (NSMutableArray*)getKeys
+{
+    //Get me the song keys from the server
+    //Replace the code below with code to obtain songs
+    NSArray *keys = [@"t2742133,t1992210,t7418766,t8816323" componentsSeparatedByString:@","];
+    return [[NSMutableArray alloc] initWithArray:keys];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -80,6 +88,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
+    NSMutableArray* keys = [self getKeys]; 
+    
     
     return cell;
 }
