@@ -8,7 +8,9 @@
 
 #import "MainViewController.h"
 
-@interface MainViewController ()
+@interface MainViewController () {
+    //BOOL _loggedIn;
+}
 
 @end
 
@@ -21,14 +23,19 @@
 }
 
 - (IBAction)createRoom:(id)sender {
-    NSLog(@"works");
-    [self performSegueWithIdentifier:@"toPlaylist" sender:self];
+    NSLog(@"Host");
+    //if (_loggedIn) {
+        [self performSegueWithIdentifier:@"fromHosttoList" sender:self];
+    //} else {
+        //login and send ^
+    //}
 }
 
 - (IBAction)joinRoom:(id)sender {
-    [self performSegueWithIdentifier:@"toPlaylist" sender:self];
+    NSLog(@"Sender");
+    //sender.text send to jia's side
+    //if ok, join; else error
 }
-
 
 - (void)didReceiveMemoryWarning
 {

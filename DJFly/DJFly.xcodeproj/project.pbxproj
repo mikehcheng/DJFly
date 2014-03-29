@@ -26,6 +26,7 @@
 		4CAEDD2C18E65C0B00A685A7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDD2B18E65C0B00A685A7 /* SystemConfiguration.framework */; };
 		4CAEDD2E18E65C1300A685A7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDD2D18E65C1300A685A7 /* AudioToolbox.framework */; };
 		4CAEDD3018E65C1A00A685A7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDD2F18E65C1A00A685A7 /* Security.framework */; };
+		4CAEDD3318E6891200A685A7 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEDD3218E6891200A685A7 /* PlaylistViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		4CAEDD2B18E65C0B00A685A7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4CAEDD2D18E65C1300A685A7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CAEDD2F18E65C1A00A685A7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4CAEDD3118E6891200A685A7 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
+		4CAEDD3218E6891200A685A7 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 				4CAEDD0418E656DF00A685A7 /* Main.storyboard */,
 				4CAEDD0718E656DF00A685A7 /* MainViewController.h */,
 				4CAEDD0818E656DF00A685A7 /* MainViewController.m */,
+				4CAEDD3118E6891200A685A7 /* PlaylistViewController.h */,
+				4CAEDD3218E6891200A685A7 /* PlaylistViewController.m */,
 				4CAEDD0A18E656DF00A685A7 /* Images.xcassets */,
 				4CAEDCF918E656DF00A685A7 /* Supporting Files */,
 			);
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CAEDD3318E6891200A685A7 /* PlaylistViewController.m in Sources */,
 				4CAEDD0918E656DF00A685A7 /* MainViewController.m in Sources */,
 				4CAEDD0318E656DF00A685A7 /* AppDelegate.m in Sources */,
 				4CAEDCFF18E656DF00A685A7 /* main.m in Sources */,
