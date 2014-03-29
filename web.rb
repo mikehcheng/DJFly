@@ -10,11 +10,11 @@ require 'pg'
 def getSongs(connection, groupid) 
     res = connection.exec("select songid,song,artist,album,albumurl from #{groupid} order by placeid").values()
     res.each do |song|
-        song[0]="{songid: #{song[0]}"
-        song[1]="properties: [ {song: #{song[1]}}"
-        song[2]="{artist: #{song[2]}}"
-        song[3]="{album: #{song[3]}}"
-        song[4]="{aurl: #{song[4]}}]}"
+        song[0]="{\"songid\": \"#{song[0]}\""
+        song[1]="\"properties\": [ {\"song\": \"#{song[1]}\"}"
+        song[2]="{\"artist\": \"#{song[2]}\"}"
+        song[3]="{\"album\": \"#{song[3]}\"}"
+        song[4]="{\"aurl\": \"#{song[4]}\"}]}"
         song = song.join(',')
     end
     json_out_str = "[#{res.join(',')}]".to_json.to_s
@@ -37,7 +37,7 @@ end
             getSongs(conn, params[:groupid])
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
-                File.open('songs.json', 'w') {|f| f.write("{error: 'No table with name #{params[:groupid]} detected!'}")}
+                File.open('songs.json', 'w') {|f| f.write("{\"error\": \"No table with name #{params[:groupid]} detected!\"}")}
                 send_file('songs.json')
             end
         end
