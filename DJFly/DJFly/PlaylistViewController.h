@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Rdio/Rdio.h>
 
+
 @interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate, RdioDelegate, RDPlayerDelegate>
 
 @property (strong, nonatomic) NSString *username;
