@@ -66,7 +66,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="joinRoom:" destination="96X-sN-HXy" eventType="editingDidEnd" id="n2H-xu-OmO"/>
+                                    <action selector="joinRoom:" destination="96X-sN-HXy" eventType="editingDidEnd" id="gH4-I4-ngP"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type in host username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQX-vu-a4T">
@@ -81,6 +81,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZWH-3f-llc"/>
                     <connections>
+                        <outlet property="textField" destination="3XS-1S-EWN" id="z8N-gr-jFx"/>
                         <segue destination="uAX-TO-0bj" kind="push" identifier="fromClientToList" id="epN-Qo-vZd"/>
                     </connections>
                 </viewController>
@@ -142,6 +143,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="18H-Po-jec"/>
+        <segue reference="epN-Qo-vZd"/>
     </inferredMetricsTieBreakers>
 </document>

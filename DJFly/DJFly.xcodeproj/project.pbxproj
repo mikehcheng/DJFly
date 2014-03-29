@@ -411,6 +411,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DJFly/DJFly-Prefix.pch";
 				INFOPLIST_FILE = "DJFly/DJFly-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -428,6 +429,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DJFly/DJFly-Prefix.pch";
 				INFOPLIST_FILE = "DJFly/DJFly-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -494,6 +496,7 @@
 				4CAEDD2318E656E000A685A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CAEDD2418E656E000A685A7 /* Build configuration list for PBXNativeTarget "DJFlyTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +505,7 @@
 				4CAEDD2618E656E000A685A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

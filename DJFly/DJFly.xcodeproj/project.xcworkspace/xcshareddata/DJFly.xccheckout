@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C72C6B20-9B36-4D84-B409-280B496457AD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DJFly</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>18C7DAFC-2F15-430B-B236-4008B1060CE9</key>
+		<string>https://github.com/mikehcheng/DJFly.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>DJFly/DJFly.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>18C7DAFC-2F15-430B-B236-4008B1060CE9</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/mikehcheng/DJFly.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>18C7DAFC-2F15-430B-B236-4008B1060CE9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>18C7DAFC-2F15-430B-B236-4008B1060CE9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DJFly</string>
+		</dict>
+	</array>
+</dict>
+</plist>

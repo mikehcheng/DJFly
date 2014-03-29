@@ -7,14 +7,14 @@
 //
 
 #import "AppDelegate.h"
-#import <Rdio/Rdio.h>
 
 @implementation AppDelegate
 
+@synthesize rdio;
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //Rdio *rdio = [[Rdio alloc] initWithConsumerKey:@"YOUR KEY" andSecret:@"YOUR SECRET" delegate:nil];
-    //[rdio.player playSource:@"t2742133"];
+    rdio = [[Rdio alloc] initWithConsumerKey:@"consumerkey" andSecret:@"consumersecret" delegate:nil];
     return YES;
 }
 							
