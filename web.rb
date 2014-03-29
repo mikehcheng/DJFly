@@ -5,7 +5,7 @@ require 'sinatra'
 require 'json'
 require 'pg'
 
-    conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :passwordd => 'pEETVlkA65Lq7qboYkac1WbPZZ')
+    conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
 
 def getSongs(groupid)
     
