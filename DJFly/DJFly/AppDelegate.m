@@ -7,12 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import <Rdio/Rdio.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    //Rdio *rdio = [[Rdio alloc] initWithConsumerKey:@"YOUR KEY" andSecret:@"YOUR SECRET" delegate:nil];
+    //[rdio.player playSource:@"t2742133"];
     return YES;
 }
 							

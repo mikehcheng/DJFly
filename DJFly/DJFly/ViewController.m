@@ -20,6 +20,16 @@
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
+- (IBAction)createRoom:(id)sender {
+    NSLog(@"works");
+    [self performSegueWithIdentifier:@"toPlaylist" sender:self];
+}
+
+- (IBAction)joinRoom:(id)sender {
+    [self performSegueWithIdentifier:@"toPlaylist" sender:self];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
