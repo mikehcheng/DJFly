@@ -26,7 +26,7 @@ end
     post '/create/:groupid' do
         begin 
             conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), albumurl varchar(255) primary key (placeid))")
-        rescue PG::error => err
+        rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P07")
                 getSongs(params[:groupid])
             end
@@ -36,7 +36,7 @@ end
     get '/join/:groupid' do
         begin
             getSongs(params[:groupid])
-        rescue PG::error => err
+        rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
                 File.open('songs.json', 'w') {|f| f.write("{error: 'No table with name #{params[:groupid]} detected!'}")}
                 send_file('songs.json')
