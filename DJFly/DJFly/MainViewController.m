@@ -10,8 +10,7 @@
 #import "PlaylistViewController.h"
 
 @interface MainViewController () {
-    //BOOL _loggedIn;
-    __weak IBOutlet UITextField *textField;
+
 }
 
 @end
@@ -21,9 +20,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    textField.delegate = self;
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (IBAction)createRoom:(id)sender {
@@ -37,13 +33,8 @@
 //    [request setURL:url];
 //    
 //    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request delegate:self];
-//    
-    
-    //if (_loggedIn) {
+//
     [self performSegueWithIdentifier:@"fromHostToList" sender:self];
-    //} else {
-        //login and send ^
-    //}
 }
 
 - (IBAction)joinRoom:(id)sender {
@@ -63,9 +54,6 @@
         PlaylistViewController *target = [segue destinationViewController];
         target.username = textField.text;
         target.host = FALSE;
-    } else if ([segue.identifier isEqualToString:@"internal"]) {
-        NSLog(@"wow");
-        [self.navigationController setNavigationBarHidden:NO];
     }
 }
 
