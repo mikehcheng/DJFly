@@ -7,9 +7,8 @@ require 'pg'
 
     conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
 
-def getSongs(groupid)
-    
-    res = conn.exec("select songid,song,artist,album,albumurl from #{groupid} order by placeid").values()
+def getSongs(connection, groupid) 
+    res = connection.exec("select songid,song,artist,album,albumurl from #{groupid} order by placeid").values()
     res.each do |song|
         song[0]="{songid: #{song[0]}"
         song[1]="properties: [ {song: #{song[1]}}"
@@ -28,14 +27,14 @@ end
             conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), albumurl varchar(255) primary key (placeid))")
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P07")
-                getSongs(params[:groupid])
+                getSongs(conn, params[:groupid])
             end
         end
     end
 
     get '/join/:groupid' do
         begin
-            getSongs(params[:groupid])
+            getSongs(conn, params[:groupid])
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
                 File.open('songs.json', 'w') {|f| f.write("{error: 'No table with name #{params[:groupid]} detected!'}")}
