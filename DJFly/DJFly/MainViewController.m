@@ -10,7 +10,7 @@
 #import "PlaylistViewController.h"
 
 @interface MainViewController () {
-
+    NSString *_roomName;
 }
 
 @end
@@ -20,6 +20,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (IBAction)createRoom:(id)sender {
@@ -38,9 +40,17 @@
 }
 
 - (IBAction)joinRoom:(id)sender {
-    NSLog(@"Sender");
+    NSLog(@"Client");
     //sender.text send to jia's side
     //if ok, join; else error
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Join existing room" message:@"Enter the Rdio username." delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+//only for join method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    _roomName = [alertView textFieldAtIndex:0].text;
     [self performSegueWithIdentifier:@"fromClientToList" sender:self];
 }
 
@@ -48,18 +58,14 @@
     if ([segue.identifier isEqualToString:@"fromHostToList"]) {
         PlaylistViewController *target = [segue destinationViewController];
         target.host = TRUE;
-        target.username = @"root"; //change to username
+        target.username = @"temp"; //change to in playlistview
         [self.navigationController setNavigationBarHidden:NO];
     } else if ([segue.identifier isEqualToString:@"fromClientToList"]) {
         PlaylistViewController *target = [segue destinationViewController];
-        target.username = textField.text;
+        NSLog(_roomName);
+        target.username = _roomName;
         target.host = FALSE;
     }
-}
-
--(BOOL)textFieldShouldReturn:(UITextField *) field{
-    [textField resignFirstResponder];
-    return YES;
 }
 
 - (void)didReceiveMemoryWarning
