@@ -23,7 +23,7 @@ def getSongs(groupid)
     send_file('songs.json')
 end
 
-    post 'create/:groupid' do
+    post '/create/:groupid' do
         begin 
             conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), albumurl varchar(255) primary key (placeid))")
         rescue PG::error => err
@@ -33,7 +33,7 @@ end
         end
     end
 
-    get 'join/:groupid' do
+    get '/join/:groupid' do
         begin
             getSongs(params[:groupid])
         rescue PG::error => err
@@ -43,13 +43,16 @@ end
             end
         end
     end
-    patch 'add/:groupid/:songid/:song/:artist/:album/:aurl' do
+
+    patch '/add/:groupid/:songid/:song/:artist/:album/:aurl' do
         place = conn.exec("select count(*) from #{params[:groupid]}")
         conn.exec("insert into #{params[:groupid]} values (#{place}, #{params[:songid]}, #{params[:song]}, #{params[:artist]}, #{params[:album]}, #{params[:aurl]})")
     end
-    patch 'remove/:groupid/:placeid' do
+
+    patch '/remove/:groupid/:placeid' do
         conn.exec("delete from #{params[:groupid]} where placeid=#{params[:placeid]}")
     end
-    delete 'leave/:groupid' do
+
+    delete '/leave/:groupid' do
         conn.exec("drop table #{params[:groupid]}")
     end
