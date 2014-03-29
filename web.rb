@@ -38,7 +38,7 @@ end
             getSongs(params[:groupid])
         rescue PG::error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
-                File.open('songs.json', 'w') {|f| f.write("{error: 'No table with name #{params[:groupid]} detected!'}"}
+                File.open('songs.json', 'w') {|f| f.write("{error: 'No table with name #{params[:groupid]} detected!'}")}
                 send_file('songs.json')
             end
         end
