@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Rdio/Rdio.h>
 
-@interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate>
+@interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate, RdioDelegate, RDPlayerDelegate>
 
 @property (strong, nonatomic) NSString *username;
 @property (nonatomic) BOOL host;
+
+@property (strong, nonatomic) RDPlayer *player;
 
 @end
