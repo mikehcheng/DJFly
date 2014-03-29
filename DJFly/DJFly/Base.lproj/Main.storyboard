@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4BK-7g-OV2"/>
                         <viewControllerLayoutGuide type="bottom" id="7Ag-Ie-MaY"/>
@@ -23,7 +23,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="createRoom:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Nog-SH-wy0"/>
+                                    <action selector="createRoom:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="5cY-Xx-02N"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giy-1o-y7p">
@@ -33,7 +33,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="joinRoom:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Vvp-oC-M2Z"/>
+                                    <action selector="joinRoom:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="UL5-Rx-a6d"/>
                                 </connections>
                             </button>
                         </subviews>

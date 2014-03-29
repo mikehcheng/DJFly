@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  MainViewController.m
 //  DJFly
 //
 //  Created by Michael Cheng on 3/28/14.
 //  Copyright (c) 2014 Michael Cheng. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 
-@interface ViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad
 {

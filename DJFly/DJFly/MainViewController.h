@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MainViewController.h
 //  DJFly
 //
 //  Created by Michael Cheng on 3/28/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MainViewController : UIViewController
 
 @end
