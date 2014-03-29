@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController.h"
+#import "PlaylistViewController.h"
 
 @interface MainViewController () {
     //BOOL _loggedIn;
@@ -20,25 +21,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
     textField.delegate = self;
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (IBAction)createRoom:(id)sender {
     NSLog(@"Host");
-    
-    NSURL *baseUrl = [NSURL URLWithString:@"http://djfly.herokuapp.com/"];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    
-    NSURL *url = [NSURL URLWithString:@"root/create" relativeToURL:baseUrl];
-    [request setURL:url];
-    
-    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    
-    
+//    
+//    NSURL *baseUrl = [NSURL URLWithString:@"http://djfly.herokuapp.com/"];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    
+//    NSURL *url = [NSURL URLWithString:@"root/create" relativeToURL:baseUrl];
+//    [request setURL:url];
+//    
+//    NSURLConnection *connection= [[NSURLConnection alloc] initWithRequest:request delegate:self];
+//    
     
     //if (_loggedIn) {
     [self performSegueWithIdentifier:@"fromHostToList" sender:self];
@@ -47,16 +46,32 @@
     //}
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *) field{
-    [textField resignFirstResponder];
-    return YES;
-}
-
 - (IBAction)joinRoom:(id)sender {
     NSLog(@"Sender");
     //sender.text send to jia's side
     //if ok, join; else error
     [self performSegueWithIdentifier:@"fromClientToList" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"fromHostToList"]) {
+        PlaylistViewController *target = [segue destinationViewController];
+        target.host = TRUE;
+        target.username = @"root"; //change to username
+        [self.navigationController setNavigationBarHidden:NO];
+    } else if ([segue.identifier isEqualToString:@"fromClientToList"]) {
+        PlaylistViewController *target = [segue destinationViewController];
+        target.username = textField.text;
+        target.host = FALSE;
+    } else if ([segue.identifier isEqualToString:@"internal"]) {
+        NSLog(@"wow");
+        [self.navigationController setNavigationBarHidden:NO];
+    }
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *) field{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning

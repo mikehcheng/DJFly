@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlaylistViewController : UITableViewController
+@interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate>
+
+@property (strong, nonatomic) NSString *username;
+@property (nonatomic) BOOL host;
 
 @end

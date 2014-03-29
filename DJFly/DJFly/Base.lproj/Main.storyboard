@@ -33,7 +33,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="96X-sN-HXy" kind="push" id="d38-0h-2Gj"/>
+                                    <segue destination="96X-sN-HXy" kind="push" identifier="internal" id="d38-0h-2Gj"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,7 +46,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757" y="31"/>
+            <point key="canvasLocation" x="731" y="25"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="HG7-Z0-nqC">
@@ -89,10 +89,10 @@
             </objects>
             <point key="canvasLocation" x="1143" y="362"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Playlist View Controller-->
         <scene sceneID="gCq-Bi-X5r">
             <objects>
-                <tableViewController id="uAX-TO-0bj" sceneMemberID="viewController">
+                <tableViewController id="uAX-TO-0bj" customClass="PlaylistViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="aj2-wN-o6I">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -116,7 +116,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ubr-Ue-FGV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="10"/>
+            <point key="canvasLocation" x="1555" y="-226"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4x2-mH-hNC">
