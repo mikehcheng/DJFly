@@ -155,8 +155,12 @@
     NSDictionary *tempDictionary = [_jsonData objectAtIndex:indexPath.row];
     cell.textLabel.text = [tempDictionary objectForKey:@"trackname"];
     cell.detailTextLabel.text = [tempDictionary objectForKey:@"artist"];
-    NSData *data = [tempDictionary objectForKey:@"albumCover"];
-    UIImage *theImage = [UIImage imageWithData:data];
+    NSString* encodedURL = [tempDictionary objectForKey:@"albumCover"];
+    NSString *decodedURL = [encodedURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *imageURL = [NSURL URLWithString:decodedURL];
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    
+    UIImage *theImage = [UIImage imageWithData:imageData];
     cell.imageView.image = theImage;
     return cell;
 }

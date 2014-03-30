@@ -34,8 +34,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"YO");
-    NSLog(username);
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     if (! _sharedrdio) {
@@ -72,9 +70,16 @@
     NSDictionary *tempDictionary = [dictionaryArray objectAtIndex:indexPath.row];
     cell.textLabel.text = [tempDictionary objectForKey:@"trackname"];
     cell.detailTextLabel.text = [tempDictionary objectForKey:@"artist"];
-    NSData *data = [tempDictionary objectForKey:@"albumCover"];
-    UIImage *theImage = [UIImage imageWithData:data];
+    NSString *encodedURL = [tempDictionary objectForKey:@"albumCover"];
+    NSString *decodedURL = [encodedURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *imageURL = [NSURL URLWithString:decodedURL];
+    NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+    UIImage *theImage = [UIImage imageWithData:imageData];
     cell.imageView.image = theImage;
+    
+    //NSData *data = [tempDictionary objectForKey:@"albumCover"];
+    //UIImage *theImage = [UIImage imageWithData:data];
+    //cell.imageView.image = theImage;
     return cell;
 }
 
@@ -131,13 +136,20 @@
     for (int x = 0; x < [trackCount intValue]; x++){
         
         NSDictionary *results = [overallResults objectAtIndex:x];
-        NSURL *imageURL = [NSURL URLWithString:[results objectForKey:@"icon400"]];
-        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+        
+        NSString *unescaped = [results objectForKey:@"icon400"];
+        NSString *charactersToEscape = @"!*'();:@&=+$,/?%#[]\" ";
+        NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:charactersToEscape] invertedSet];
+        NSString *encodedString = [unescaped stringByAddingPercentEncodingWithAllowedCharacters:allowedCharacters];
+        
+        //NSURL *imageURL = [NSURL URLWithString:[results objectForKey:@"icon400"]];
+        //NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         NSString *name = [results objectForKey:@"name"];
         NSString *artist = [results objectForKey:@"artist"];
         NSNumber *trackNumber = [results objectForKey:@"key"];
+        NSString *album = [results objectForKey:@"album"];
         
-        [dictionaryArray addObject:@{@"albumCover": imageData, @"artist": artist, @"trackname": name, @"key": trackNumber}];
+        [dictionaryArray addObject:@{@"albumCover": encodedString, @"artist": artist, @"trackname": name, @"key": trackNumber, @"album": album}];
     }
     
     
