@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Rdio/Rdio.h>
-
+#import <AFNetworking/AFNetworking.h>
 
 @interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate, RdioDelegate, RDPlayerDelegate, RDAPIRequestDelegate>
 

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michael Cheng. All rights reserved.
 //
 
+
 #import "AppDelegate.h"
 #import "PlaylistViewController.h"
 
@@ -37,7 +38,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = username;
     self.navigationController.navigationBarHidden = NO;
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]]];
     
     if (! _sharedrdio) {
         _sharedrdio = ((AppDelegate *) [[UIApplication sharedApplication] delegate]).rdio;
@@ -61,6 +65,15 @@
     NSString *url = [dict objectForKey:@"url"];
     username = [url substringWithRange:NSMakeRange(8, [url length] - 9)];
     self.navigationItem.title = username;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *getUrl = [@"http://djfly.herokuapp.com/" stringByAppendingString:[@"create/" stringByAppendingString:username]];
+    [manager GET:getUrl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
 }
 
 - (void)rdioRequest:(RDAPIRequest *)request didFailWithError:(NSError *)error {

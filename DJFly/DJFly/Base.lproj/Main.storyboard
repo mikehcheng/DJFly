@@ -32,19 +32,20 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CiR-eX-phX">
-                                <rect key="frame" x="129" y="141" width="46" height="30"/>
+                                <rect key="frame" x="102" y="350" width="116" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Create">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.70588235294117641" green="0.38431372549019605" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="createRoom:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YVt-51-2jp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="giy-1o-y7p">
-                                <rect key="frame" x="137" y="351" width="30" height="30"/>
+                                <rect key="frame" x="102" y="436" width="116" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Join">
+                                    <color key="titleColor" red="0.70588235290000001" green="0.38431372549999998" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -55,7 +56,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="RzB-Hd-p4W"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="createButton" destination="CiR-eX-phX" id="nNk-Io-5K6"/>
+                        <outlet property="joinButton" destination="giy-1o-y7p" id="Swx-Jn-LIB"/>
                         <segue destination="uAX-TO-0bj" kind="push" identifier="fromHostToList" id="18H-Po-jec"/>
                         <segue destination="uAX-TO-0bj" kind="push" identifier="fromClientToList" id="DLL-qC-0cB"/>
                     </connections>
@@ -73,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="mrK-Iu-fPf">
-                            <rect key="frame" x="0.0" y="130" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="66" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="09Z-e0-bsA"/>
@@ -94,7 +99,7 @@
                         </toolbar>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6Au-44-L7Y">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Au-44-L7Y" id="7hy-4Z-nm6">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
