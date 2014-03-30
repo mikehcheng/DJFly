@@ -43,7 +43,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSString *url = [@"http://djfly.herokuapp.com/" stringByAppendingString:[@"join/" stringByAppendingString:_roomName]];
         [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"JSON: %@", responseObject);
+            NSLog(@"JSON: %@", responseObject);
             [self performSegueWithIdentifier:@"fromClientToList" sender:self];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
