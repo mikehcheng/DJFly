@@ -11,6 +11,8 @@
 
 @interface MainViewController () {
     NSString *_roomName;
+    __weak IBOutlet UIButton *createButton;
+    __weak IBOutlet UIButton *joinButton;
 }
 
 @end
@@ -20,8 +22,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Splash@2x.png"]]];
     
-    self.navigationController.navigationBarHidden = YES;
+    createButton.layer.borderWidth=1.0f;
+    createButton.layer.borderColor=[[[UIColor alloc] initWithRed:0.71 green:0.38 blue:0.97 alpha:1] CGColor];
+    createButton.layer.cornerRadius = 5;
+    createButton.layer.masksToBounds = YES;
+    
+    joinButton.layer.borderWidth=1.0f;
+    joinButton.layer.borderColor=[[[UIColor alloc] initWithRed:0.71 green:0.38 blue:0.97 alpha:1] CGColor];
+    joinButton.layer.cornerRadius = 5;
+    joinButton.layer.masksToBounds = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 }
 
 - (IBAction)createRoom:(id)sender {
@@ -43,7 +60,7 @@
         AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         NSString *url = [@"http://djfly.herokuapp.com/" stringByAppendingString:[@"join/" stringByAppendingString:_roomName]];
         [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            //NSLog(@"JSON: %@", responseObject);
+            NSLog(@"JSON: %@", responseObject);
             [self performSegueWithIdentifier:@"fromClientToList" sender:self];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Error: %@", error);
@@ -59,7 +76,7 @@
     if ([segue.identifier isEqualToString:@"fromHostToList"]) {
         PlaylistViewController *target = [segue destinationViewController];
         target.host = TRUE;
-        target.username = @"temp"; //change to in playlistview
+        target.username = @""; //change to in playlistview
     } else if ([segue.identifier isEqualToString:@"fromClientToList"]) {
         PlaylistViewController *target = [segue destinationViewController];
         target.username = _roomName;

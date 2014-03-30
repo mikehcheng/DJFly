@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michael Cheng. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 #import <AFNetworking/AFNetworking.h>
 

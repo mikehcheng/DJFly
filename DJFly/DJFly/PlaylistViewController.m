@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Michael Cheng. All rights reserved.
 //
 
+
 #import "AppDelegate.h"
 #import "PlaylistViewController.h"
 
@@ -37,12 +38,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.title = username;
+    self.navigationController.navigationBarHidden = NO;
+    [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]]];
+    
     if (! _sharedrdio) {
         _sharedrdio = ((AppDelegate *) [[UIApplication sharedApplication] delegate]).rdio;
         _sharedrdio.delegate = self;
         _sharedrdio.player.delegate = self;
     }
-
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -54,45 +60,65 @@
     }
 }
 
+- (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
+    NSDictionary *dict = (NSDictionary *) data;
+    NSString *url = [dict objectForKey:@"url"];
+    username = [url substringWithRange:NSMakeRange(8, [url length] - 9)];
+    self.navigationItem.title = username;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *getUrl = [@"http://djfly.herokuapp.com/" stringByAppendingString:[@"create/" stringByAppendingString:username]];
+    [manager GET:getUrl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+}
+
+- (void)rdioRequest:(RDAPIRequest *)request didFailWithError:(NSError *)error {
+    NSLog(error);
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 3;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    // Return the number of rows in the section.
-    return [self getKeys].count;
-}
-
-- (NSMutableArray*)getKeys
-{
-    //Get me the song keys from the server
-    //Replace the code below with code to obtain songs
-    NSArray *keys = [@"t2742133,t1992210,t7418766,t8816323" componentsSeparatedByString:@","];
-    return [[NSMutableArray alloc] initWithArray:keys];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    NSMutableArray* keys = [self getKeys]; 
-    
-    
-    return cell;
-}
+//#pragma mark - Table view data source
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    // Return the number of sections.
+//    return 3;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    // Return the number of rows in the section.
+//    return [self getKeys].count;
+//}
+//
+//- (NSMutableArray*)getKeys
+//{
+//    //Get me the song keys from the server
+//    //Replace the code below with code to obtain songs
+//    NSArray *keys = [@"t2742133,t1992210,t7418766,t8816323" componentsSeparatedByString:@","];
+//    return [[NSMutableArray alloc] initWithArray:keys];
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static NSString *CellIdentifier = @"Cell";
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+//    
+//    // Configure the cell...
+//    NSMutableArray* keys = [self getKeys]; 
+//    
+//    
+//    return cell;
+//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -145,7 +171,6 @@
 
  */
 - (IBAction)playClicked:(id)sender {
-    NSLog(@"clicked");
     if (!_playing) {
         NSArray* keys = [@"t2742133,t1992210,t7418766,t8816323" componentsSeparatedByString:@","];
         [[self getPlayer] playSources:keys];
@@ -174,21 +199,31 @@
 - (void)rdioDidAuthorizeUser:(NSDictionary *)user withAccessToken:(NSString *)accessToken
 {
     [self setLoggedIn:YES];
+    
+    [_sharedrdio callAPIMethod:@"currentUser"
+                withParameters:[[NSDictionary alloc] init]
+                      delegate:self];
 }
 
 - (void)rdioAuthorizationFailed:(NSString *)error
 {
     [self setLoggedIn:NO];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)rdioAuthorizationCancelled
 {
     [self setLoggedIn:NO];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)rdioDidLogout
 {
     [self setLoggedIn:NO];
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - RDPlayerDelegate

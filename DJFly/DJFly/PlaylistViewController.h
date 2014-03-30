@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <Rdio/Rdio.h>
+#import <AFNetworking/AFNetworking.h>
 
-
-@interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate, RdioDelegate, RDPlayerDelegate>
+@interface PlaylistViewController : UITableViewController <NSURLConnectionDelegate, RdioDelegate, RDPlayerDelegate, RDAPIRequestDelegate>
 
 @property (strong, nonatomic) NSString *username;
 @property (nonatomic) BOOL host;

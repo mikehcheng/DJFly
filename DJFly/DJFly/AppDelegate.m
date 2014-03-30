@@ -15,6 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     rdio = [[Rdio alloc] initWithConsumerKey:@"scyzjg9shhkm5wmr2ygpmztf" andSecret:@"BFHNU5CTHq" delegate:nil];
+    
     return YES;
 }
 							
