@@ -17,6 +17,8 @@
     BOOL _paused;
     Rdio *_sharedrdio;
     RDPlayer* _player;
+    
+    NSMutableArray *_jsonData;
 }
 
 
@@ -39,6 +41,9 @@
 {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
     self.navigationItem.title = username;
     self.navigationController.navigationBarHidden = NO;
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]]];
@@ -58,6 +63,10 @@
     if (! _loggedIn && host) {
         [_sharedrdio authorizeFromController:self];
     }
+    
+    [self updatePlaylist];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(updatePlaylist) userInfo:NULL repeats:YES];
 }
 
 - (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
@@ -86,39 +95,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-//{
-//    // Return the number of sections.
-//    return 3;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    // Return the number of rows in the section.
-//    return [self getKeys].count;
-//}
-//
-//- (NSMutableArray*)getKeys
-//{
-//    //Get me the song keys from the server
-//    //Replace the code below with code to obtain songs
-//    NSArray *keys = [@"t2742133,t1992210,t7418766,t8816323" componentsSeparatedByString:@","];
-//    return [[NSMutableArray alloc] initWithArray:keys];
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    static NSString *CellIdentifier = @"Cell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-//    
-//    // Configure the cell...
-//    NSMutableArray* keys = [self getKeys]; 
-//    
-//    
-//    return cell;
-//}
+- (void) updatePlaylist {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *getUrl = [@"http://djfly.herokuapp.com/" stringByAppendingString:[@"join/" stringByAppendingString:username]];
+    [manager GET:getUrl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+             //add handling of join data
+             NSError *e = nil;
+             NSMutableArray *array = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONReadingMutableContainers  error: &e];
+             _jsonData = array;
+             [self.tableView reloadData];
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_jsonData) {
+        return [_jsonData count];
+    }
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    if(cell == nil)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSDictionary *item = (NSDictionary *)[_jsonData objectAtIndex:indexPath.row];
+    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
+    
+    
+    return cell;
+}
 
 /*
 // Override to support conditional editing of the table view.
