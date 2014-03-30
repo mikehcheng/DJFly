@@ -5,10 +5,16 @@ require 'sinatra'
 require 'json'
 require 'pg'
 
-    $conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
 
-def getSongs(connection, groupid) 
-    res = connection.exec("select songid,song,artist,album,aurl from #{groupid} order by placeid").values()
+# Forms a connection with the server. "$conn" takes PostGreSQL commands, 
+# passing them onto the server. 
+$conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
+
+
+# Helper function; pulls relevant metadata on all songs in a room, saving and 
+# consolidating in a single JSON file. 
+def getSongs(groupid) 
+    res = $conn.exec("SELECT songid,song,artist,album,aurl FROM #{groupid} ORDER BY placeid").values()
     res.each do |song|
         song[0]='{"songid": "' + song[0] + '"'
         song[1]='"song": "' + song[1] + '"'
@@ -25,38 +31,51 @@ def getSongs(connection, groupid)
     send_file('songs.json')
 end
 
+
+# Set patterns for app to call as URLs. Patterns follow a clear pattern
+# listed below, generally being the root directory followed by a command and
+# its options. 
     get '/create/:groupid' do
         begin 
-            $conn.exec("create table #{params[:groupid]} (placeid integer not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
+            $conn.exec("CREATE TABLE #{params[:groupid]} (placeid integer NOT NULL, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), PRIMARY KEY (placeid))")
             File.open('songs.json','w') {|f| f.write('[]')}
             send_file('songs.json')
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P07")
-                getSongs($conn, params[:groupid])
+                getSongs(params[:groupid])
             end
         end
     end
 
     get '/join/:groupid' do
         begin
-            getSongs($conn, params[:groupid])
+            getSongs(params[:groupid])
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
-                File.open('error.txt', 'w') {|f| f.write('No existing group with groupid \"' + params[:groupid] + '\".')}
+                File.open('error.txt', 'w') {|f| f.write('No existing group with groupid "' + params[:groupid] + '".')}
                 send_file('error.txt')
             end
         end
     end
 
     get '/add/:groupid/:songid/:song/:artist/:album/:aurl' do
-        place = $conn.exec("select count(*) from #{params[:groupid]}").values()[0][0]
-        $conn.exec("insert into #{params[:groupid]} values (#{place}, '#{params[:songid]}', '#{params[:song]}', '#{params[:artist]}', '#{params[:album]}', '#{params[:aurl]}')")
+        place = $conn.exec("SELECT count(*) FROM #{params[:groupid]}").values()[0][0]
+        $conn.exec("INSERT INTO #{params[:groupid]} values (#{place}, '#{params[:songid]}', '#{params[:song]}', '#{params[:artist]}', '#{params[:album]}', '#{params[:aurl]}')")
     end
 
     get '/remove/:groupid/:placeid' do
-        $conn.exec("delete from #{params[:groupid]} where placeid=#{params[:placeid]}")
+        $conn.exec("DELETE FROM #{params[:groupid]} WHERE placeid=#{params[:placeid]}")
     end
 
     get '/leave/:groupid' do
-        $conn.exec("drop table #{params[:groupid]}")
+        $conn.exec("DROP TABLE #{params[:groupid]}")
+    end
+
+    get '/listrooms' do
+        File.open('tables.txt', 'w') do |f|
+            tables = $conn.exec("SELECT * FROM pg_tables WHERE schemaname='public'").values()
+            tables.each {|entry| entry = entry.to_s}
+            f.write(tables.to_s)
+        end
+        send_file('tables.txt')
     end
