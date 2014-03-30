@@ -94,9 +94,8 @@
                         stringByAppendingString:[trackname
                         stringByAppendingString:[artist
                         stringByAppendingString:[album
-                        stringByAppendingString:[albumcover
-                        stringByAppendingString:[artist
-                                                 ]]]]]]]]];
+                        stringByAppendingString: albumCover
+                                                 ]]]]]]];
     [manager GET:getUrl parameters:nil
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"JSON: %@", responseObject);
