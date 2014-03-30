@@ -24,7 +24,7 @@ end
 
     post '/create/:groupid' do
         begin 
-            $conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
+            $conn.exec("create table #{params[:groupid]} (placeid integer not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
             File.open('songs.json','w') {|f| f.write('[]')}
             send_file('song.json')
         rescue PG::Error => err
