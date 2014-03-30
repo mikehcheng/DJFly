@@ -16,11 +16,11 @@ $conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port =
 def getSongs(groupid) 
     res = $conn.exec("SELECT songid,song,artist,album,aurl FROM #{groupid} ORDER BY placeid").values()
     res.each do |song|
-        song[0]='{"songid": "' + song[0] + '"'
-        song[1]='"song": "' + song[1] + '"'
+        song[0]='{"key": "' + song[0] + '"'
+        song[1]='"trackname": "' + song[1] + '"'
         song[2]='"artist": "' + song[2] + '"'
         song[3]='"album": "' + song[3] + '"'
-        song[4]='"aurl": "' + song[4] + '"}'
+        song[4]='"albumcover": "' + song[4] + '"}'
         song = song.join(',')
     end
     json_out_str = '[]'
