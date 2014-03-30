@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C081DFC18E7EB61007FEEF5 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C081DFB18E7EB61007FEEF5 /* SearchController.m */; };
 		4CAEDCF318E656DF00A685A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDCF218E656DF00A685A7 /* Foundation.framework */; };
 		4CAEDCF518E656DF00A685A7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDCF418E656DF00A685A7 /* CoreGraphics.framework */; };
 		4CAEDCF718E656DF00A685A7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAEDCF618E656DF00A685A7 /* UIKit.framework */; };
@@ -53,6 +54,8 @@
 
 /* Begin PBXFileReference section */
 		33D18E6F1BA048D185EADA3C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		4C081DFA18E7EB61007FEEF5 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
+		4C081DFB18E7EB61007FEEF5 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		4CAEDCEF18E656DF00A685A7 /* DJFly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DJFly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAEDCF218E656DF00A685A7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4CAEDCF418E656DF00A685A7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -171,6 +174,8 @@
 				4CAEDD0818E656DF00A685A7 /* MainViewController.m */,
 				4CAEDD3118E6891200A685A7 /* PlaylistViewController.h */,
 				4CAEDD3218E6891200A685A7 /* PlaylistViewController.m */,
+				4C081DFA18E7EB61007FEEF5 /* SearchController.h */,
+				4C081DFB18E7EB61007FEEF5 /* SearchController.m */,
 				4CAEDD0A18E656DF00A685A7 /* Images.xcassets */,
 				4CAEDCF918E656DF00A685A7 /* Supporting Files */,
 			);
@@ -371,6 +376,7 @@
 				4CAEDD0918E656DF00A685A7 /* MainViewController.m in Sources */,
 				4CAEDD0318E656DF00A685A7 /* AppDelegate.m in Sources */,
 				4CAEDCFF18E656DF00A685A7 /* main.m in Sources */,
+				4C081DFC18E7EB61007FEEF5 /* SearchController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

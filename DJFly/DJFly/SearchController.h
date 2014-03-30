@@ -12,5 +12,6 @@
 @interface SearchController : UITableViewController <RdioDelegate, RDAPIRequestDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @property IBOutlet UISearchBar *MusicSearchBar;
+@property (strong, nonatomic) NSString *username;
 
 @end

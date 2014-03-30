@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DJFly/PlaylistViewController.m"
-            timestampString = "417851034.749876"
+            timestampString = "417860476.378998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "@implementation PlaylistViewController"
             landmarkType = "3">
          </BreakpointContent>
