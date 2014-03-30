@@ -29,14 +29,14 @@ end
             send_file('song.json')
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P07")
-                getSongs(conn, params[:groupid])
+                getSongs($conn, params[:groupid])
             end
         end
     end
 
     get '/join/:groupid' do
         begin
-            getSongs(conn, params[:groupid])
+            getSongs($conn, params[:groupid])
         rescue PG::Error => err
             if(err.result.error_field( PG::Result::PG_DIAG_SQLSTATE ).eql? "42P01")
                 File.open('error.txt', 'w') {|f| f.write("No existing group with groupid \"#{params[:groupid]}\".")}
