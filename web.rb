@@ -5,7 +5,7 @@ require 'sinatra'
 require 'json'
 require 'pg'
 
-    conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
+    $conn = PG::connect(:host => 'ec2-54-204-44-31.compute-1.amazonaws.com', :port => 5432, :dbname => 'daka8s9502p8uo', :user => 'psczeygltqeesf', :password => 'pEETVlkA65Lq7qboYkac1WbPZZ')
 
 def getSongs(connection, groupid) 
     res = connection.exec("select songid,song,artist,album,albumurl from #{groupid} order by placeid").values()
@@ -24,7 +24,7 @@ end
 
     post '/create/:groupid' do
         begin 
-            conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
+            $conn.exec("create table #{params[:groupid]} (placeid int not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
             File.open('songs.json','w') {|f| f.write('[]')}
             send_file('song.json')
         rescue PG::Error => err
