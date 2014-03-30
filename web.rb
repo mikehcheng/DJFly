@@ -46,14 +46,14 @@ end
     end
 
     patch '/add/:groupid/:songid/:song/:artist/:album/:aurl' do
-        place = conn.exec("select count(*) from #{params[:groupid]}")
-        conn.exec("insert into #{params[:groupid]} values (#{place}, #{params[:songid]}, #{params[:song]}, #{params[:artist]}, #{params[:album]}, #{params[:aurl]})")
+        place = $conn.exec("select count(*) from #{params[:groupid]}")
+        $conn.exec("insert into #{params[:groupid]} values (#{place}, #{params[:songid]}, #{params[:song]}, #{params[:artist]}, #{params[:album]}, #{params[:aurl]})")
     end
 
     patch '/remove/:groupid/:placeid' do
-        conn.exec("delete from #{params[:groupid]} where placeid=#{params[:placeid]}")
+        $conn.exec("delete from #{params[:groupid]} where placeid=#{params[:placeid]}")
     end
 
     delete '/leave/:groupid' do
-        conn.exec("drop table #{params[:groupid]}")
+        $conn.exec("drop table #{params[:groupid]}")
     end
