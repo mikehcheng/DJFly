@@ -17,7 +17,10 @@ def getSongs(connection, groupid)
         song[4]="{\"aurl\": \"#{song[4]}\"}]}"
         song = song.join(',')
     end
-    json_out_str = "[#{res.join(',')}]".to_json.to_s
+    json_out_str = '[]'
+    if(res.length != 0)
+        json_out_str = "[#{res.join(',')}]".to_json.to_s
+    end
     File.open('songs.json','w') {|f| f.write(json_out_str)}
     send_file('songs.json')
 end
