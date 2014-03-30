@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Rdio/Rdio.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface SearchController : UITableViewController <RdioDelegate, RDAPIRequestDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
 

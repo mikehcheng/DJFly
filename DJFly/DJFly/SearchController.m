@@ -75,6 +75,34 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *tempDictionary = [dictionaryArray objectAtIndex:indexPath.row];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSString *key = [[tempDictionary objectForKey:@"key"] stringByAppendingString:@"/"];
+    NSString *trackname = [[tempDictionary objectForKey:@"trackname"] stringByAppendingString:@"/"];
+    NSString *artist =[[tempDictionary objectForKey:@"artist"] stringByAppendingString:@"/"];
+    NSString *album =[[tempDictionary objectForKey:@"album"] stringByAppendingString:@"/"];
+    NSString *albumCover = [[tempDictionary objectForKey:@"albumCover"] stringByAppendingString:@"/"];
+    NSString *getUrl = [@"http://djfly.herokuapp.com/"
+                        stringByAppendingString:[@"add/"
+                        stringByAppendingString:[username
+                        stringByAppendingString:[key
+                        stringByAppendingString:[trackname
+                        stringByAppendingString:[artist
+                        stringByAppendingString:[album
+                        stringByAppendingString:[albumcover
+                        stringByAppendingString:[artist
+                                                 ]]]]]]]]];
+    [manager GET:getUrl parameters:nil
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             NSLog(@"JSON: %@", responseObject);
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error: %@", error);
+         }];
+
+}
+
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     // Tells the table data source to reload when text changes
     //[self filterContentForSearchText:searchString scope:
@@ -101,14 +129,13 @@
     for (int x = 0; x < [trackCount intValue]; x++){
         
         NSDictionary *results = [overallResults objectAtIndex:x];
-        //NSString *album = [results objectForKey:@"album"];
         NSURL *imageURL = [NSURL URLWithString:[results objectForKey:@"icon400"]];
         NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         NSString *name = [results objectForKey:@"name"];
         NSString *artist = [results objectForKey:@"artist"];
-        NSLog(name, artist);
+        NSNumber *trackNumber = [results objectForKey:@"key"];
         
-        [dictionaryArray addObject:@{@"albumCover": imageData, @"artist": artist, @"trackname": name}];
+        [dictionaryArray addObject:@{@"albumCover": imageData, @"artist": artist, @"trackname": name, @"key": trackNumber}];
     }
     
     
