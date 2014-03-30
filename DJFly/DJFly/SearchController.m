@@ -12,6 +12,8 @@
 @interface SearchController () {
     Rdio *_sharedrdio;
     NSNumber *trackCount;
+    //Dictionaries have form albumCover: ~, artist: ~, trackname: ~
+    NSMutableArray *dictionaryArray;
 }
 
 @end
@@ -48,7 +50,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -57,21 +59,21 @@
     return [trackCount intValue];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *DetailCellIdentifier = @"DetailCell";
-    
-    UITableViewCell *cell = [aTableView dequeueReusableCellWithIdentifier:DetailCellIdentifier];
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
     if (cell == nil) {
-        NSArray *cellObjects = [[NSBundle mainBundle] loadNibNamed:@"DetailCell" owner:self options:nil];
-        cell = (UITableViewCell*) [cellObjects objectAtIndex:0];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    // setup your cell
+    NSDictionary *tempDictionary = [dictionaryArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = [tempDictionary objectForKey:@"trackname"];
+    cell.detailTextLabel.text = [tempDictionary objectForKey:@"artist"];
+    NSData *data = [tempDictionary objectForKey:@"albumCover"];
+    UIImage *theImage = [UIImage imageWithData:data];
+    cell.imageView.image = theImage;
+    return cell;
 }
-*/
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     // Tells the table data source to reload when text changes
@@ -94,17 +96,21 @@
         trackCount = [NSNumber numberWithInteger:10];
     }
     NSArray *overallResults = [tempDic objectForKey:@"results"];
-    NSMutableArray *dictionaryArray = [[NSMutableArray alloc] init];
+    dictionaryArray = [[NSMutableArray alloc] init];
 
     for (int x = 0; x < [trackCount intValue]; x++){
         
         NSDictionary *results = [overallResults objectAtIndex:x];
-        NSString *album = [results objectForKey:@"album"];
+        //NSString *album = [results objectForKey:@"album"];
+        NSURL *imageURL = [NSURL URLWithString:[results objectForKey:@"icon400"]];
+        NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
         NSString *name = [results objectForKey:@"name"];
         NSString *artist = [results objectForKey:@"artist"];
+        NSLog(name, artist);
         
-        [dictionaryArray addObject:@{@"album": album, @"artist": artist, @"trackname": name}];
+        [dictionaryArray addObject:@{@"albumCover": imageData, @"artist": artist, @"trackname": name}];
     }
+    
     
 }
 
