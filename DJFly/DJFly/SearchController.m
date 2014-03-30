@@ -21,6 +21,7 @@
 @implementation SearchController
 
 @synthesize MusicSearchBar;
+@synthesize username;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +34,8 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"YO");
+    NSLog(username);
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     if (! _sharedrdio) {

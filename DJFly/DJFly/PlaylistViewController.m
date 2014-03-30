@@ -9,15 +9,19 @@
 
 #import "AppDelegate.h"
 #import "PlaylistViewController.h"
+#import "SearchController.h"
 
 @interface PlaylistViewController () {
+    __weak IBOutlet UIView *_subview;
     __weak IBOutlet UIButton *_playButton;
+    __weak IBOutlet UIButton *_backButton;
+    __weak IBOutlet UIButton *_forwardButton;
+    
     BOOL _loggedIn;
     BOOL _playing;
     BOOL _paused;
     Rdio *_sharedrdio;
     RDPlayer* _player;
-    
     NSMutableArray *_jsonData;
 }
 
@@ -44,8 +48,15 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    CGRect myFrame = _subview.frame;
+    myFrame.origin.y = 468;
+    _subview.frame = myFrame;
+    
+    
     self.navigationItem.title = username;
     self.navigationController.navigationBarHidden = NO;
+    UIBarButtonItem *plusButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(goToAdder:)];
+    self.navigationItem.rightBarButtonItem = plusButton;
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background.png"]]];
     
     if (! _sharedrdio) {
@@ -67,6 +78,14 @@
     [self updatePlaylist];
     
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(updatePlaylist) userInfo:NULL repeats:YES];
+}
+
+- (IBAction)goToAdder:(id)sender {
+    [self performSegueWithIdentifier:@"fromListToAdd" sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ((SearchController *)[segue destinationViewController]).username = username;
 }
 
 - (void)rdioRequest:(RDAPIRequest *)request didLoadData:(id)data {
@@ -105,7 +124,7 @@
              NSError *e = nil;
              NSMutableArray *array = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONReadingMutableContainers  error: &e];
              _jsonData = array;
-             [self.tableView reloadData];
+             //[self.tableView reloadData];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              NSLog(@"Error: %@", error);
          }];
@@ -128,19 +147,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    if(cell == nil)
-    {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MyIdentifier"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    NSDictionary *item = (NSDictionary *)[_jsonData objectAtIndex:indexPath.row];
-    cell.textLabel.text = [item objectForKey:@"mainTitleKey"];
-    
-    
+    NSDictionary *tempDictionary = [_jsonData objectAtIndex:indexPath.row];
+    cell.textLabel.text = [tempDictionary objectForKey:@"trackname"];
+    cell.detailTextLabel.text = [tempDictionary objectForKey:@"artist"];
+    NSData *data = [tempDictionary objectForKey:@"albumCover"];
+    UIImage *theImage = [UIImage imageWithData:data];
+    cell.imageView.image = theImage;
     return cell;
 }
 
