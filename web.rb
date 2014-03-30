@@ -22,7 +22,7 @@ def getSongs(connection, groupid)
     send_file('songs.json')
 end
 
-    post '/create/:groupid' do
+    get '/create/:groupid' do
         begin 
             $conn.exec("create table #{params[:groupid]} (placeid integer not null, songid varchar(255), song varchar(255), artist varchar(255), album varchar(255), aurl varchar(255), primary key (placeid))")
             File.open('songs.json','w') {|f| f.write('[]')}
