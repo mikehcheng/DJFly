@@ -61,10 +61,12 @@ end
     get '/add/:groupid/:songid/:song/:artist/:album/:aurl' do
         place = $conn.exec("SELECT count(*) FROM #{params[:groupid]}").values()[0][0]
         $conn.exec("INSERT INTO #{params[:groupid]} values (#{place}, '#{params[:songid]}', '#{params[:song]}', '#{params[:artist]}', '#{params[:album]}', '#{params[:aurl]}')")
+        getSongs(params[:groupid])
     end
 
     get '/remove/:groupid/:placeid' do
         $conn.exec("DELETE FROM #{params[:groupid]} WHERE placeid=#{params[:placeid]}")
+        getSongs(params[:groupid])
     end
 
     get '/leave/:groupid' do
